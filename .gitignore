@@ -1,0 +1,31 @@
+# Node modules
+node_modules/
+npm-debug.log
+yarn-error.log
+dist/
+build/
+
+# Logs
+logs
+*.log
+yarn-debug.log*
+.yarn-integrity
+.DS_Store
+
+# dotenv environment variables file
+.env
+
+# IDE specific files
+.vscode/
+.idea/
+
+# Build output
+/build
+/dist
+
+# Temporary files
+*.tmp
+*.swp
+
+# Coverage files
+coverage/
