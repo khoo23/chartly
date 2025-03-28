@@ -98,7 +98,7 @@ const ChartBuilder = () => {
     return (
         <div className="container py-5">
             <h1 className="display-4 text-center">Chart Builder - {chartType} Chart</h1>
-            <div id="chartContainer" className="my-4" style={{ maxWidth: '80%', margin: '0 auto' }}>
+            <div id="chartContainer" className="my-4" style={{ maxWidth: '50%', margin: '0 auto' }}>
                 <ChartComponent data={chartData} options={chartOptions} />
             </div>
 
