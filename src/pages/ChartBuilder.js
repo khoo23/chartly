@@ -127,6 +127,7 @@ const ChartBuilder = () => {
                     <div key={index} className="d-flex gap-2 mb-2">
                         <input type="text" value={label} onChange={(e) => handleLabelChange(index, e.target.value)} className="form-control" placeholder={`Label ${index + 1}`} />
                         <input type="number" value={data[index]} onChange={(e) => handleDataChange(index, e.target.value)} className="form-control" placeholder="Value" />
+                        <input type="color" value={bgColor} onChange={(e) => handleLabelChange(index, e.target.value)} className="form-control" placeholder='Color'/>
                         <button className="btn btn-danger" onClick={() => removeRow(index)}>Remove</button>
                     </div>
                 ))}
