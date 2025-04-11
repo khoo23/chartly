@@ -28,6 +28,7 @@ const ChartBuilder = () => {
     const [legendPosition, setLegendPosition] = useState('top');
     const [showDataLabels, setShowDataLabels] = useState(true);
     const [bgColor, setBgColor] = useState('#007bff');
+    const [dataColor, setDataColor] = useState('#007bff');
     const [borderColor, setBorderColor] = useState('#000');
     const [fontSize, setFontSize] = useState(16);
 
@@ -42,6 +43,18 @@ const ChartBuilder = () => {
         newData[index] = Number(value);
         setData(newData);
     };
+
+    const handleColorChange = (index, value) => {
+        const newBGColor = [...bgColor];
+        newBGColor[index] = value;
+        setBgColor(newBGColor);
+    }
+
+    const handleDataColorChange = (index, value) => {
+        const newDataColor = [...dataColor];
+        newDataColor[index] = value;
+        setDataColor(newDataColor);
+    }
 
     const addRow = () => {
         setLabels([...labels, `Label ${labels.length + 1}`]);
@@ -68,7 +81,8 @@ const ChartBuilder = () => {
         datasets: [{
             label: title,
             data: data,
-            backgroundColor: bgColor,
+            backgroundColor: dataColor,
+            dataColor: dataColor,
             borderColor: borderColor,
             borderWidth: 2,
             hoverOffset: 4,
@@ -115,7 +129,7 @@ const ChartBuilder = () => {
                 <label>Data Label Visibility: </label>
                 <input type="checkbox" checked={showDataLabels} onChange={() => setShowDataLabels(!showDataLabels)} className="form-check-input mb-2" />
                 <label>Background Color: </label>
-                <input type="color" value={bgColor} onChange={(e) => setBgColor(e.target.value)} className="form-control mb-2" />
+                <input type="color" value={bgColor} onChange={(e) => handleColorChange(e.target.value)} className="form-control mb-2" />
                 <label>Border Color: </label>
                 <input type="color" value={borderColor} onChange={(e) => setBorderColor(e.target.value)} className="form-control mb-2" />
                 <label>Font Size: </label>
@@ -127,7 +141,7 @@ const ChartBuilder = () => {
                     <div key={index} className="d-flex gap-2 mb-2">
                         <input type="text" value={label} onChange={(e) => handleLabelChange(index, e.target.value)} className="form-control" placeholder={`Label ${index + 1}`} />
                         <input type="number" value={data[index]} onChange={(e) => handleDataChange(index, e.target.value)} className="form-control" placeholder="Value" />
-                        <input type="color" value={bgColor} onChange={(e) => handleLabelChange(index, e.target.value)} className="form-control" placeholder='Color'/>
+                        <input type="color" value={dataColor[index]} onChange={(e) => handleDataColorChange(index, e.target.value)} className="form-control" placeholder='Color'/>
                         <button className="btn btn-danger" onClick={() => removeRow(index)}>Remove</button>
                     </div>
                 ))}
