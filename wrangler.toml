@@ -1,0 +1,7 @@
+name = "chartly-webapp"
+type = "webpack"
+account_id = "35f600608fd4b03cfe3148ce0b04c5cf"
+compatibility_date = "2025-04-08"
+
+[site]
+bucket = "./build"

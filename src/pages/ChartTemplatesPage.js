@@ -24,9 +24,8 @@ const ChartTemplatesPage = () => {
                             <img src={chart.icon} alt={chart.name} className="card-img-top" style={{ maxHeight: '150px', objectFit: 'contain' }} />
                             <div className="card-body">
                                 <h5 className="card-title">{chart.name}</h5>
-                                {/* Fixed Link Path */}
                                 <Link to={`/chart-builder/${chart.path}`} className="btn btn-primary">
-                                    Create {chart.name}
+                                    Create 
                                 </Link>
                             </div>
                         </div>
