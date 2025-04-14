@@ -20,14 +20,9 @@ const chartTypes = {
 };
 
 const CommunityExample = () => {
-    const setChartType = () => {
-        if (useParams().chartId == 1) return 'Doughnut';
-        else if(useParams() == 2) return 'Pie';
-        else if(useParams() == 3) return 'Bar';
-    }
-    const chartType = setChartType();
+    const chartType = useLocation().state.chart;
     const chartInfo = useLocation().state;
-    const ChartComponent = chartTypes.doughnut;//chartTypes[chartType.toLowerCase()] || Pie;
+    const ChartComponent = chartTypes[chartType];
 
     const [labels, setLabels] = useState(['Label 1', 'Label 2', 'Label 3']);
     const [data, setData] = useState([10, 20, 30]);

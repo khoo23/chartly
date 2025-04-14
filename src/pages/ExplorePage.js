@@ -5,6 +5,7 @@ const communityCharts = [
     {
         id: 1,
         title: "Revenue Distribution",
+        chart: "doughnut",
         type: "Donut Chart",
         author: "Alex Morgan",
         rating: 4.8,
@@ -14,6 +15,7 @@ const communityCharts = [
     {
         id: 2,
         title: "Market Share Analysis",
+        chart: "pie",
         type: "Pie Chart",
         author: "Sarah Chen",
         rating: 4.6,
@@ -23,6 +25,7 @@ const communityCharts = [
     {
         id: 3,
         title: "Sales Performance",
+        chart: "bar",
         type: "Bar Chart",
         author: "Mike Wilson",
         rating: 4.9,
@@ -32,6 +35,7 @@ const communityCharts = [
     {
         id: 4,
         title: "Trend Analysis",
+        chart: "line",
         type: "Line Chart",
         author: "Diana Lee",
         rating: 4.7,
@@ -41,6 +45,7 @@ const communityCharts = [
     {
         id: 5,
         title: "Customer Growth",
+        chart: "line",
         type: "Area Chart",
         author: "John Smith",
         rating: 4.5,
