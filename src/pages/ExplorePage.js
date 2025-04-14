@@ -10,7 +10,9 @@ const communityCharts = [
         author: "Alex Morgan",
         rating: 4.8,
         views: 1200,
-        image: "../assets/pie-chart.png"
+        image: "../assets/pie-chart.png",
+        label: ["Company 1", "Company 2", "Company 3"],
+        values: [10, 10, 10]
     },
     {
         id: 2,
@@ -20,7 +22,9 @@ const communityCharts = [
         author: "Sarah Chen",
         rating: 4.6,
         views: 800,
-        image: "../assets/pie-chart.png"
+        image: "../assets/pie-chart.png",
+        label: ["Company 1", "Company 2", "Company 3"],
+        values: [10, 10, 10]
     },
     {
         id: 3,
@@ -30,7 +34,9 @@ const communityCharts = [
         author: "Mike Wilson",
         rating: 4.9,
         views: 1500,
-        image: "../assets/bar-chart.png"
+        image: "../assets/bar-chart.png",
+        label: ["Company 1", "Company 2", "Company 3"],
+        values: [10, 10, 10]
     },
     {
         id: 4,
@@ -40,7 +46,9 @@ const communityCharts = [
         author: "Diana Lee",
         rating: 4.7,
         views: 950,
-        image: "../assets/line-chart.png"
+        image: "../assets/line-chart.png",
+        label: ["Company 1", "Company 2", "Company 3"],
+        values: [10, 10, 10]
     },
     {
         id: 5,
@@ -50,7 +58,9 @@ const communityCharts = [
         author: "John Smith",
         rating: 4.5,
         views: 700,
-        image: "../assets/area-chart.png"
+        image: "../assets/area-chart.png",
+        label: ["Company 1", "Company 2", "Company 3"],
+        values: [10, 10, 10]
     }
 ];
 
