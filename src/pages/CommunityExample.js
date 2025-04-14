@@ -30,7 +30,7 @@ const CommunityExample = () => {
     const [legendPosition, setLegendPosition] = useState('top');
     const [showDataLabels, setShowDataLabels] = useState(true);
     const [bgColor, setBgColor] = useState('#007bff');
-    const [dataColor, setDataColor] = useState('#007bff');
+    const [dataColor, setDataColor] = useState(chartInfo.color);
     const [borderColor, setBorderColor] = useState('#000');
     const [fontSize, setFontSize] = useState(16);
 

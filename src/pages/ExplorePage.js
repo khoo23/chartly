@@ -12,7 +12,8 @@ const communityCharts = [
         views: 1200,
         image: "../assets/pie-chart.png",
         label: ["Company 1", "Company 2", "Company 3"],
-        values: [10, 10, 10]
+        values: [10, 40, 30],
+        color: ["#db1cd3", "#09c9d0", "#5616ce"]
     },
     {
         id: 2,
@@ -23,8 +24,9 @@ const communityCharts = [
         rating: 4.6,
         views: 800,
         image: "../assets/pie-chart.png",
-        label: ["Company 1", "Company 2", "Company 3"],
-        values: [10, 10, 10]
+        label: ["Company 1", "Company 2", "Company 3", "Company 4", "Company 5", "Company 6"],
+        values: [30, 25, 10, 15, 10, 10],
+        color: ["#db1cd3", "#09c9d0", "#5616ce", "#9e7d25", "#2449c1", "#4bffdc"]
     },
     {
         id: 3,
@@ -36,7 +38,8 @@ const communityCharts = [
         views: 1500,
         image: "../assets/bar-chart.png",
         label: ["Company 1", "Company 2", "Company 3"],
-        values: [10, 10, 10]
+        values: [10, 10, 10],
+        color: ["#db1cd3", "#09c9d0", "#f33c59"]
     },
     {
         id: 4,
@@ -48,7 +51,8 @@ const communityCharts = [
         views: 950,
         image: "../assets/line-chart.png",
         label: ["Company 1", "Company 2", "Company 3"],
-        values: [10, 10, 10]
+        values: [10, 10, 10],
+        color: ["#f33c59", "#2449c1", "#05dbc9"]
     },
     {
         id: 5,
@@ -60,7 +64,8 @@ const communityCharts = [
         views: 700,
         image: "../assets/area-chart.png",
         label: ["Company 1", "Company 2", "Company 3"],
-        values: [10, 10, 10]
+        values: [10, 10, 10],
+        color: ["#db1cd3", "#f33c59", "#05dbc9"]
     }
 ];
 
