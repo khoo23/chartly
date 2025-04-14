@@ -82,11 +82,10 @@ const ChartBuilder = () => {
             label: title,
             data: data,
             backgroundColor: dataColor,
-            dataColor: dataColor,
             borderColor: borderColor,
             borderWidth: 2,
             hoverOffset: 4,
-            pointBackgroundColor: bgColor,
+            pointBackgroundColor: dataColor,
             pointBorderColor: borderColor,
         }],
     };
@@ -147,6 +146,7 @@ const ChartBuilder = () => {
                 ))}
                 <button className="btn btn-success" onClick={addRow}>Add Data Row</button>
             </div>
+            <div>{chartType}</div>
         </div>
     );
 };
