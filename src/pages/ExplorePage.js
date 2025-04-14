@@ -69,7 +69,7 @@ const ExplorePage = () => {
                                 <p className="card-text">Author: {chart.author}</p>
                                 <p className="card-text">Rating: ⭐ {chart.rating}</p>
                                 <p className="card-text">Views: 👁️ {chart.views}</p>
-                                <Link to={`/chart-view/${chart.id}`} className="btn btn-primary">View Chart</Link>
+                                <Link to={`/chart-view/${chart.id}`} state={communityCharts[chart.id - 1]} className="btn btn-primary">View Chart</Link>
                             </div>
                         </div>
                     </div>

@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import ExplorePage from './pages/ExplorePage';
 import ChartBuilder from './pages/ChartBuilder';
+import CommunityExample from './pages/CommunityExample';
 import UserProfile from './pages/UserProfile';
 import UserGuides from './pages/UserGuides';
 import ChartTemplatesPage from './pages/ChartTemplatesPage';
@@ -28,6 +29,7 @@ function App() {
                 
                 {/* Chart Builder */}
                 <Route path="/chart-builder/:chartType" element={<ChartBuilder />} />
+                <Route path="/chart-view/:chartId" element={<CommunityExample />} />
 
                 {/* Quick Start Guide Pages */}
                 <Route path="/guides/getting-started" element={<GettingStarted />} />
