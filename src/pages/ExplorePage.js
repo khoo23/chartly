@@ -11,6 +11,7 @@ const communityCharts = [
         rating: 4.8,
         views: 1200,
         image: "../assets/pie-chart.png",
+        sets: 1,
         label: ["Company 1", "Company 2", "Company 3"],
         values: [10, 40, 30],
         color: ["#db1cd3", "#09c9d0", "#5616ce"]
@@ -24,6 +25,7 @@ const communityCharts = [
         rating: 4.6,
         views: 800,
         image: "../assets/pie-chart.png",
+        sets: 1,
         label: ["Company 1", "Company 2", "Company 3", "Company 4", "Company 5", "Company 6"],
         values: [30, 25, 10, 15, 10, 10],
         color: ["#db1cd3", "#09c9d0", "#5616ce", "#9e7d25", "#2449c1", "#4bffdc"]
@@ -37,8 +39,9 @@ const communityCharts = [
         rating: 4.9,
         views: 1500,
         image: "../assets/bar-chart.png",
+        sets: 1,
         label: ["Company 1", "Company 2", "Company 3"],
-        values: [10, 10, 10],
+        values: [10000, 39083, 287103],
         color: ["#db1cd3", "#09c9d0", "#f33c59"]
     },
     {
@@ -50,9 +53,10 @@ const communityCharts = [
         rating: 4.7,
         views: 950,
         image: "../assets/line-chart.png",
-        label: ["Company 1", "Company 2", "Company 3"],
-        values: [10, 10, 10],
-        color: ["#f33c59", "#2449c1", "#05dbc9"]
+        sets: 1,
+        label: ["Company 1", "Company 2", "Company 3", "Company 4"],
+        values: [500, 321, 400, 820],
+        color: ["#f33c59", "#2449c1", "#05dbc9", "#db1cd3"]
     },
     {
         id: 5,
@@ -63,9 +67,12 @@ const communityCharts = [
         rating: 4.5,
         views: 700,
         image: "../assets/area-chart.png",
-        label: ["Company 1", "Company 2", "Company 3"],
-        values: [10, 10, 10],
-        color: ["#db1cd3", "#f33c59", "#05dbc9"]
+        sets: 2,
+        label: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+        values: [105, 203, 190, 230, 250, 260, 304, 340, 400, 350, 500, 553],
+        color: ["#db1cd3", "#db1cd3", "#db1cd3", "#db1cd3", 
+            "#f33c59", "#f33c59", "#f33c59", "#f33c59",
+            "#05dbc9", "#05dbc9", "#05dbc9", "#05dbc9"]
     }
 ];
 

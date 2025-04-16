@@ -24,6 +24,7 @@ const CommunityExample = () => {
     const chartInfo = useLocation().state;
     const ChartComponent = chartTypes[chartType];
 
+    const [dataSets, setSets] = useState(chartInfo.sets);
     const [labels, setLabels] = useState(chartInfo.label);
     const [data, setData] = useState(chartInfo.values);
     const [title, setTitle] = useState('My Chart');
@@ -149,7 +150,6 @@ const CommunityExample = () => {
                 ))}
                 <button className="btn btn-success" onClick={addRow}>Add Data Row</button>
             </div>
-            <div>{chartInfo.values}</div>
         </div>
     );
 }

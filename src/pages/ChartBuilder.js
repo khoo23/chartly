@@ -146,7 +146,6 @@ const ChartBuilder = () => {
                 ))}
                 <button className="btn btn-success" onClick={addRow}>Add Data Row</button>
             </div>
-            <div>{chartType}</div>
         </div>
     );
 };
