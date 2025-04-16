@@ -6,7 +6,8 @@ const userProfile = {
     followers: 1200,
     charts: 128,
     liked: 45,
-    avatar: "/assets/avatar.png"
+    avatar: "/assets/avatar.png",
+bio: "Hi! I am an analyst for ALC Company!"
 };
 
 const userCharts = [
@@ -27,8 +28,11 @@ const templates = [
     { id: 9, title: "Performance Comparison", image: "/assets/bar-chart.png" },
 ];
 
+
 const UserProfile = () => {
     const [activeTab, setActiveTab] = useState("my-charts");
+    const [editStatus, makeEdits] = useState("viewing");
+    const [bioText, bioUpdate] = useState(userProfile.bio);
 
     const renderCharts = (charts) => {
         return (
@@ -47,6 +51,28 @@ const UserProfile = () => {
         );
     };
 
+    const renderBio = () => {
+        return(userProfile.bio);
+    };
+
+    const editBio = () => {
+        makeEdits("editing");
+    };
+
+    const textChange = (value) => {
+        bioUpdate(value);
+    };
+
+    const changeBio = (makeChange) => {
+        if (makeChange) {
+            const newBio = document.getElementById("bioEdit").value;
+            userProfile.bio = newBio;
+            bioUpdate(userProfile.bio);
+        }
+        else bioUpdate(userProfile.bio);
+        makeEdits("viewing");
+    };
+
     return (
         <div className="container py-5">
             <div className="text-center mb-5">
@@ -54,6 +80,15 @@ const UserProfile = () => {
                 <h1>{userProfile.name}</h1>
                 <p>{userProfile.role}</p>
                 <p>{userProfile.charts} Charts · {userProfile.followers} Followers</p>
+            </div>
+
+            <div>
+                <h1>User Bio</h1>
+                <p id="bio">{renderBio()}</p>
+                <button className="btn btn-primary mt-3" onClick={editBio}>Edit Bio</button> <br/>
+                <input id='bioEdit' type='textbox' hidden={editStatus === "viewing"} value={bioText} onChange={(e) => textChange(e.target.value)}></input><br/>
+                <button className="btn btn-success" hidden={editStatus === "viewing"} onClick={(e) => changeBio(true)}>Save</button>
+                <button className="btn btn-danger" hidden={editStatus === "viewing"} onClick={(e) => changeBio(false)}>Cancel</button>
             </div>
 
             <ul className="nav nav-tabs mb-4" role="tablist">
