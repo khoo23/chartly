@@ -7,7 +7,7 @@ const userProfile = {
     charts: 128,
     liked: 45,
     avatar: "/assets/avatar.png",
-bio: "Hi! I am an analyst for ALC Company!"
+    bio: "Hi! I am an analyst for ALC Company!"
 };
 
 const userCharts = [
@@ -32,7 +32,9 @@ const templates = [
 const UserProfile = () => {
     const [activeTab, setActiveTab] = useState("my-charts");
     const [editStatus, makeEdits] = useState("viewing");
+    const [boxStatus, setBox] = useState("noSubmit");
     const [bioText, bioUpdate] = useState(userProfile.bio);
+    const [testOut, chOut] = useState(false);
 
     const renderCharts = (charts) => {
         return (
@@ -56,10 +58,15 @@ const UserProfile = () => {
     };
 
     const editBio = () => {
+        setBox("noSubmit");
         makeEdits("editing");
     };
 
     const textChange = (value) => {
+        //Prevent the submit button from being pressed if the box is unchanged or empty
+        // If statement only works if coparing with passed parameter
+        if (value === "" || value === userProfile.bio) setBox("noSubmit");
+        else setBox("submit");
         bioUpdate(value);
     };
 
@@ -85,9 +92,9 @@ const UserProfile = () => {
             <div>
                 <h1>User Bio</h1>
                 <p id="bio">{renderBio()}</p>
-                <button className="btn btn-primary mt-3" onClick={editBio}>Edit Bio</button> <br/>
+                <button className="btn btn-primary mt-3" onClick={editBio} disabled={editStatus === "editing"}>Edit Bio</button> <br/>
                 <input id='bioEdit' type='textbox' hidden={editStatus === "viewing"} value={bioText} onChange={(e) => textChange(e.target.value)}></input><br/>
-                <button className="btn btn-success" hidden={editStatus === "viewing"} onClick={(e) => changeBio(true)}>Save</button>
+                <button className="btn btn-success" hidden={editStatus === "viewing"} disabled={boxStatus === "noSubmit"} onClick={(e) => changeBio(true)}>Save</button>
                 <button className="btn btn-danger" hidden={editStatus === "viewing"} onClick={(e) => changeBio(false)}>Cancel</button>
             </div>
 
@@ -120,6 +127,7 @@ const UserProfile = () => {
                     </div>
                 )}
             </div>
+            <p>{bioText} {userProfile.bio} {testOut}</p>
         </div>
     );
 };
