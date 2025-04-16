@@ -93,7 +93,7 @@ const UserProfile = () => {
                 <h1>User Bio</h1>
                 <p id="bio">{renderBio()}</p>
                 <button className="btn btn-primary mt-3" onClick={editBio} disabled={editStatus === "editing"}>Edit Bio</button> <br/>
-                <input id='bioEdit' type='textbox' hidden={editStatus === "viewing"} value={bioText} onChange={(e) => textChange(e.target.value)}></input><br/>
+                <textarea id='bioEdit' cols = "100" hidden={editStatus === "viewing"} value={bioText} onChange={(e) => textChange(e.target.value)}/><br/>
                 <button className="btn btn-success" hidden={editStatus === "viewing"} disabled={boxStatus === "noSubmit"} onClick={(e) => changeBio(true)}>Save</button>
                 <button className="btn btn-danger" hidden={editStatus === "viewing"} onClick={(e) => changeBio(false)}>Cancel</button>
             </div>
