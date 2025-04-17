@@ -28,12 +28,15 @@ const ChartBuilder = () => {
     const [legendPosition, setLegendPosition] = useState('top');
     const [showDataLabels, setShowDataLabels] = useState(true);
     const [bgColor, setBgColor] = useState('#007bff');
+    const [bgOpac, setBgOpac] = useState(255);
+    const [bgCO, setBgCO] = useState(bgColor + bgOpac.toString(16));
     const [dataColor, setDataColor] = useState('#007bff');
     const [borderColor, setBorderColor] = useState('#000');
     const [fontSize, setFontSize] = useState(16);
     const [lineSize, setLineSize] = useState(2);
     const [pointSize, setPointSize] = useState(5);
     const [fillMode, setFill] = useState(false);
+    const [test, ct] = useState(0);
 
     const dataColorSetup = () => {
         if (
@@ -91,10 +94,21 @@ const ChartBuilder = () => {
         setData(newData);
     };
 
-    const handleColorChange = (index, value) => {
-        const newBGColor = [...bgColor];
-        newBGColor[index] = value;
-        setBgColor(newBGColor);
+    const handleBgColor = (value) => {
+        setBgColor(value);
+        handleColorChange(value, bgOpac);
+    };
+
+    const handleBgOpac = (value) => {
+        const alpha = Math.floor(value * 255 / 100);
+        //ct(alpha);
+        setBgOpac(value);
+        handleColorChange(bgColor, alpha);
+    };
+
+    const handleColorChange = (valueC, valueO) => {
+        const hexa = valueC + valueO.toString(16);
+        setBgCO(hexa);
     }
 
     const handleDataColorChange = (index, value) => {
@@ -128,7 +142,7 @@ const ChartBuilder = () => {
         datasets: [{
             label: title,
             data: data,
-            backgroundColor: bgColor,
+            backgroundColor: bgCO,
             borderColor: borderColor,
             borderWidth: lineSize,
             hoverOffset: 4,
@@ -181,7 +195,10 @@ const ChartBuilder = () => {
                 <label>Data Label Visibility: </label>
                 <input type="checkbox" checked={showDataLabels} onChange={() => setShowDataLabels(!showDataLabels)} className="form-check-input mb-2" />
                 <label>Background Color: </label>
-                <input type="color" value={bgColor} onChange={(e) => setBgColor(e.target.value)} className="form-control mb-2" />
+                <input type="color" value={bgColor} onChange={(e) => handleBgColor(e.target.value)} className="form-control mb-2" />
+                <label>Background Opacity (0 - 100)%: </label>
+                <input type="range" value={bgOpac} onChange={(e) => handleBgOpac(Number(e.target.value))} min="0" max="100" className="form-control mb-2" />
+                {areaSetting()}
                 <label>Border Color: </label>
                 <input type="color" value={borderColor} onChange={(e) => setBorderColor(e.target.value)} className="form-control mb-2" />
                 <label>Font Size: </label>
@@ -189,7 +206,6 @@ const ChartBuilder = () => {
                 <label>Line Thickness</label>
                 <input type='number' value={lineSize} onChange={(e) => setLineSize(Number(e.target.value))} className='form-control mb-2' />
                 {pointInfo()}
-                {areaSetting()}
                 <button className="btn btn-primary mt-3" onClick={exportChart}>Download Chart</button>
 
                 <h4>Data Input</h4>
@@ -203,6 +219,7 @@ const ChartBuilder = () => {
                 ))}
                 <button className="btn btn-success" onClick={addRow}>Add Data Row</button>
             </div>
+            <p>{bgOpac} {test}</p>
         </div>
     );
 };
