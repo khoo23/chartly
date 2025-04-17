@@ -219,7 +219,6 @@ const ChartBuilder = () => {
                 ))}
                 <button className="btn btn-success" onClick={addRow}>Add Data Row</button>
             </div>
-            <p>{bgOpac} {test}</p>
         </div>
     );
 };
