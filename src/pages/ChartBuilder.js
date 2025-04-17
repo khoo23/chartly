@@ -21,8 +21,13 @@ const chartTypes = {
 const ChartBuilder = () => {
     const { chartType } = useParams();
     const ChartComponent = chartTypes[chartType.toLowerCase()] || Pie;
-
-    const [labels, setLabels] = useState(['Label 1', 'Label 2', 'Label 3']);
+    
+    var initArray = ['Label 1', 'Label 2', 'Label 3'];
+    if (
+        chartType === "scatter" ||
+        chartType === "bubble"
+    ) initArray = [1, 2, 3];
+    const [labels, setLabels] = useState(initArray);
     const [data, setData] = useState([10, 20, 30]);
     const [title, setTitle] = useState('My Chart');
     const [legendPosition, setLegendPosition] = useState('top');
@@ -45,8 +50,7 @@ const ChartBuilder = () => {
             chartType === "doughnut" ||
             chartType === "column" ||
             chartType === "polar"
-        )
-        chartData.datasets.backgroundColor = dataColor;
+        ) chartData.datasets.backgroundColor = dataColor;
     };
 
     const pointInfo = () => {
