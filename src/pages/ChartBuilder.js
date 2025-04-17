@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Chart as ChartJS, ArcElement, LineElement, BarElement, PointElement, CategoryScale, LinearScale, Title, Tooltip, Legend, RadialLinearScale } from 'chart.js';
+import { Chart as ChartJS, ArcElement, LineElement, BarElement, PointElement, CategoryScale, LinearScale, Filler, Title, Tooltip, Legend, RadialLinearScale } from 'chart.js';
 import { Pie, Line, Bar, Doughnut, Scatter, Bubble, PolarArea } from 'react-chartjs-2';
 import html2canvas from 'html2canvas';
 
-ChartJS.register(ArcElement, LineElement, BarElement, PointElement, CategoryScale, LinearScale, RadialLinearScale, Title, Tooltip, Legend);
+ChartJS.register(ArcElement, LineElement, BarElement, PointElement, CategoryScale, LinearScale, RadialLinearScale, Filler, Title, Tooltip, Legend);
 
 const chartTypes = {
     pie: Pie,
@@ -31,6 +31,53 @@ const ChartBuilder = () => {
     const [dataColor, setDataColor] = useState('#007bff');
     const [borderColor, setBorderColor] = useState('#000');
     const [fontSize, setFontSize] = useState(16);
+    const [lineSize, setLineSize] = useState(2);
+    const [pointSize, setPointSize] = useState(5);
+    const [fillMode, setFill] = useState(false);
+
+    const dataColorSetup = () => {
+        if (
+            chartType === "pie" ||
+            chartType === "bar" ||
+            chartType === "doughnut" ||
+            chartType === "column" ||
+            chartType === "polar"
+        )
+        chartData.datasets.backgroundColor = dataColor;
+    };
+
+    const pointInfo = () => {
+        if (
+            chartType === "line" ||
+            chartType === "scatter" ||
+            chartType === "area" 
+        )
+        {
+            return(
+                <div>
+                    <label>Point Size</label>
+                    <input type='number' value={pointSize} onChange={(e) => setPointSize(Number(e.target.value))} className='form-control mb-2' />
+                </div>
+            );
+        }
+    };
+
+    const areaSetting = () => {
+        if (chartType === "area")
+        {
+            return(
+                <div>
+                    <label>Area Fill Mode</label>
+                    <select value={fillMode} onChange={(e) => setFill(e.target.value)} className="form-select mb-2">
+                        <option value="origin">y-axis</option>
+                        <option value="start">Bottom</option>
+                        <option value="end">Top</option>
+                        <option value="false">None</option>
+                    </select>
+                </div>
+            );
+        }
+    };
 
     const handleLabelChange = (index, value) => {
         const newLabels = [...labels];
@@ -81,12 +128,14 @@ const ChartBuilder = () => {
         datasets: [{
             label: title,
             data: data,
-            backgroundColor: dataColor,
+            backgroundColor: bgColor,
             borderColor: borderColor,
-            borderWidth: 2,
+            borderWidth: lineSize,
             hoverOffset: 4,
             pointBackgroundColor: dataColor,
             pointBorderColor: borderColor,
+            pointRadius: pointSize,
+            fill: fillMode
         }],
     };
 
@@ -95,6 +144,9 @@ const ChartBuilder = () => {
         maintainAspectRatio: true,
         aspectRatio: 1.5,  // Adjust chart size to take up less screen space
         plugins: {
+            filler: {
+                propegate: false,
+            },
             legend: {
                 position: legendPosition,
             },
@@ -108,6 +160,7 @@ const ChartBuilder = () => {
         },
     };
 
+    dataColorSetup();
     return (
         <div className="container py-5">
             <h1 className="display-4 text-center">Chart Builder - {chartType} Chart</h1>
@@ -128,11 +181,15 @@ const ChartBuilder = () => {
                 <label>Data Label Visibility: </label>
                 <input type="checkbox" checked={showDataLabels} onChange={() => setShowDataLabels(!showDataLabels)} className="form-check-input mb-2" />
                 <label>Background Color: </label>
-                <input type="color" value={bgColor} onChange={(e) => handleColorChange(e.target.value)} className="form-control mb-2" />
+                <input type="color" value={bgColor} onChange={(e) => setBgColor(e.target.value)} className="form-control mb-2" />
                 <label>Border Color: </label>
                 <input type="color" value={borderColor} onChange={(e) => setBorderColor(e.target.value)} className="form-control mb-2" />
                 <label>Font Size: </label>
                 <input type="number" value={fontSize} onChange={(e) => setFontSize(Number(e.target.value))} className="form-control mb-2" />
+                <label>Line Thickness</label>
+                <input type='number' value={lineSize} onChange={(e) => setLineSize(Number(e.target.value))} className='form-control mb-2' />
+                {pointInfo()}
+                {areaSetting()}
                 <button className="btn btn-primary mt-3" onClick={exportChart}>Download Chart</button>
 
                 <h4>Data Input</h4>
