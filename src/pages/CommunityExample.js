@@ -89,6 +89,8 @@ const CommunityExample = () => {
     const [pointSize, setPointSize] = useState(chartInfo.pointS);
     const [fillMode, setFill] = useState(false);
     const [chartRad, setChartRad] = useState(150);
+    const [starCond, setStar] = useState(["☆","☆","☆","☆","☆"]);
+    const [starSelect, setStarSelect] = useState(true);
 
     const dataFormat = () => {
         if (!checkPastryChart())
@@ -117,6 +119,34 @@ const CommunityExample = () => {
                     </select>
                 </div>
             );
+        }
+    }
+
+    const ratingDisplay = (starID) => {
+        var starOut = <div style={{display: "inline-block", fontSize: "30px", margin:"10px 1px"}} onMouseEnter={() => toggleStarOn(starID)} onMouseLeave={() => toggleStarOff(starID)} onClick={ratingSelect} value={starID}>{starCond[starID]}</div>;
+        return(starOut);
+    }
+
+    const toggleStarOn = (starID) => {
+        if (starSelect) {
+            const newStar = [...starCond];
+            for (var i = 0; i <= starID; i++) newStar[i] = "★";
+            setStar(newStar);
+        }
+    }
+
+    const toggleStarOff = (starID) => {
+        if (starSelect) {
+            const newStar = [...starCond];
+            for (var i = 4; i >= starID; i--) newStar[i] = "☆";
+            setStar(newStar);
+        }
+    }
+
+    const ratingSelect = () => {
+        setStarSelect(!starSelect);
+        if(!starSelect){
+            setStar(["☆","☆","☆","☆","☆"]);
         }
     }
 
@@ -258,6 +288,14 @@ const CommunityExample = () => {
         <div className="container py-5">
             <h1 className="display-4 text-center">{chartInfo.title}</h1>
             <h2 className='display-8 text-center'>By: {chartInfo.author}</h2>
+            <h4 className='display-8 text-center' onMouseLeave={setStar(["☆","☆","☆","☆","☆"])}>
+                <label>Your Rating: </label>
+                {ratingDisplay(0)}
+                {ratingDisplay(1)}
+                {ratingDisplay(2)}
+                {ratingDisplay(3)}
+                {ratingDisplay(4)}
+            </h4>
             <div id="chartContainer" className="my-4" style={{ maxWidth: '50%', margin: '0 auto' }}>
                 <ChartComponent data={chartData} options={chartOptions} />
             </div>
