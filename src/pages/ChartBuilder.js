@@ -21,6 +21,7 @@ const chartTypes = {
 const ChartBuilder = () => {
     const { chartType } = useParams();
     const ChartComponent = chartTypes[chartType.toLowerCase()] || Pie;
+    const [title, setTitle] = useState('My Chart');
 
     const checkBgType = () => {
         var typeCheck = (
@@ -41,60 +42,39 @@ const ChartBuilder = () => {
         );
         return(typeCheck);
     }
+
     const checkNumXY = () => {
         var typeCheck = (
             chartType === "scatter" ||
             chartType === "bubble" 
         );
         return(typeCheck);
-    };
-
-    var initLabel = ['Label 1', 'Label 2', 'Label 3'];
-    //Initialize lables with numbers for grapps below
-    /*if (
-        chartType === "scatter" ||
-        chartType === "bubble"
-    ) initLabel = [1, 2, 3];*/
-    var initR = [5, 20, 15];    
+    }
     
+    //Variable Setup
     const [labels, setLabels] = useState(['Label 1', 'Label 2', 'Label 3']);
-    const [pointPos, setPos] = useState([5, 20, 15])
+    const [pointPos, setPos] = useState([1, 2, 3])
     const [pointData, setData] = useState([10, 20, 30]);
-    const [pointRad, setRadius] = useState(initR);
-    const [title, setTitle] = useState('My Chart');
-    const [legendPosition, setLegendPosition] = useState('top');
-    const [showDataLabels, setShowDataLabels] = useState(false);
+    const [pointRad, setRadius] = useState([5, 10, 15]);
+    //Variable color setup
+    var initDataCO = [0];
     const [dataColor, setDataColor] = useState(['#007bff', '#007bff', '#007bff']);
     const [dataOpac, setDataOpac] = useState([255, 255, 255]);
-
-    var initDataCO = [0];
-    for(var i = 0; i < 3; i ++)
-    {
-        initDataCO[i] = dataColor[i] + dataOpac[i].toString(16);
-    }
-
+    for(var i = 0; i < 3; i ++) { initDataCO[i] = dataColor[i] + dataOpac[i].toString(16); }
     const [dataCO, setDataCO] = useState(initDataCO);
     const [bgColor, setBgColor] = useState("#007bff");
     const [bgOpac, setBgOpac] = useState(255);
-
-    //Set background color reference based on chart type
     const bgColorSetup = () => {
         if (checkBgType()) return(useState(dataCO));
         else return(useState(bgColor + bgOpac.toString(16)));
-    };
-    
+    }
     const [bgCO, setBgCO] = bgColorSetup();
     const [borderColor, setBorderColor] = useState('#000');
+    //Labels setup
+    const [legendPosition, setLegendPosition] = useState('top');
+    const [showDataLabels, setShowDataLabels] = useState(false);
     const [fontSize, setFontSize] = useState(16);
     const [lineSize, setLineSize] = useState(2);
-
-    const pointSetup = () => {
-        if (chartType === "bubble") 
-        {
-            return(useState(initR));
-        }
-        else return(useState(5));
-    };
 
     const [pointSize, setPointSize] = useState(5);
     const [fillMode, setFill] = useState(false);
@@ -107,7 +87,7 @@ const ChartBuilder = () => {
             dataObject[i] = {x: pointPos[i], y: pointData[i], r: pointRad[i]};
         }
         return dataObject;
-    };
+    }
 
     const areaSetting = () => {
         if (chartType === "area")
@@ -124,43 +104,43 @@ const ChartBuilder = () => {
                 </div>
             );
         }
-    };
+    }
 
     const handleLabelChange = (index, value) => {
         const newLabels = [...labels];
         newLabels[index] = value;
         setLabels(newLabels);
-    };
+    }
 
     const handlePositionChange = (index, value) => {
         const newPos = [...pointPos];
         newPos[index] = Number(value);
         setPos(newPos);
-    };
+    }
 
     const handleDataChange = (index, value) => {
         const newData = [...pointData];
         newData[index] = Number(value);
         setData(newData);
-    };
+    }
 
     const handleRadChange = (index, value) => {
         const newRadius = [...pointRad];
         newRadius[index] = Number(value);
         ct(newRadius[index]);
         setRadius(newRadius);
-    };
+    }
 
     const handleBgColor = (value) => {
         setBgColor(value);
         handleColorChange(value, Math.floor(bgOpac));
-    };
+    }
 
     const handleBgOpac = (value) => {
         const alpha = Math.floor(value * 255 / 100);
         setBgOpac(value);
         handleColorChange(bgColor, alpha);
-    };
+    }
 
     const handleColorChange = (valueC, valueO) => {
         const hexa = valueC + valueO.toString(16);
@@ -173,14 +153,14 @@ const ChartBuilder = () => {
         newDataAlpha[index] = value;
         setDataOpac(newDataAlpha);
         handleDataColorChange(index, dataColor[index], alpha)
-    };
+    }
     
     const handleDataColor = (index, value) => {
         const newDataColor = [...dataColor];
         newDataColor[index] = value;
         setDataColor(newDataColor);
         handleDataColorChange(index, value, Math.floor(dataOpac[index]))
-    };
+    }
 
     const handleDataColorChange = (index, valueC, valueO) => {
         const newDataColorAlpha = [...dataCO];
@@ -189,31 +169,27 @@ const ChartBuilder = () => {
         if (checkBgType()) setBgCO(dataCO);
     }
 
-    const labelPlaceHolder = (index) => {
-        if (
-            chartType === "bubble" ||
-            chartType === "scatter"
-        ) return(index + 1);
-        else return(`Label ${index + 1}`);
-    };
+    const labelPlaceHolder = (index) => { return(`Label ${index + 1}`); };
 
     const addRow = () => {
         setLabels([...labels, labelPlaceHolder(labels.length)]);
+        setPos([...pointPos, pointPos.length + 1]);
         setData([...pointData, 0]);
+        setRadius([...pointRad, 10]);
         setDataColor([...dataColor, "#007bff"]);
         setDataOpac([...dataOpac, 255]);
         setDataCO([...dataCO, "#007bffff"]);
-        if (chartType === "bubble") setPointSize([...pointSize, 10]);
-    };
+    }
 
     const removeRow = (index) => {
         setLabels(labels.filter((_, i) => i !== index));
+        setPos(pointPos.filter((_, i) => i !== index));
         setData(pointData.filter((_, i) => i !== index));
+        setRadius(pointRad.filter((_, i) => i !== index));
         setDataColor(dataColor.filter((_, i) => i !== index));
         setDataOpac(dataOpac.filter((_, i) => i !== index));
         setDataCO(dataCO.filter((_, i) => i !== index));
-        if (chartType === "bubble") setPointSize(pointSize.filter((_, i) => i !== index));
-    };
+    }
 
     const exportChart = () => {
         const chartElement = document.getElementById('chartContainer');
@@ -223,7 +199,7 @@ const ChartBuilder = () => {
             link.download = 'chart.png';
             link.click();
         });
-    };
+    }
 
     //WARNING: radius property freffers to pie/dounut size
     const chartData = {
@@ -243,7 +219,6 @@ const ChartBuilder = () => {
     };
 
     const chartOptions = {
-        //data: {x: pointPos, y: pointData},
         responsive: true,
         maintainAspectRatio: true,
         aspectRatio: 1.5,  // Adjust chart size to take up less screen space
@@ -304,7 +279,7 @@ const ChartBuilder = () => {
                         <input type="text" value={label} onChange={(e) => handleLabelChange(index, e.target.value)} className="form-control" placeholder={() => labelPlaceHolder(index)} />
                         <input type="number" hidden={!checkNumXY()} value={pointPos[index]} onChange={(e) => handlePositionChange(index, e.target.value)} className="form-control" placeholder="Value" />
                         <input type="number" value={pointData[index]} onChange={(e) => handleDataChange(index, e.target.value)} className="form-control" placeholder="Value" />
-                        <input type="number" hidden={chartType !== "bubble"} value={pointSize[index]} onChange={(e) => handleRadChange(index, e.target.value)} className="form-control" placeholder="10" />
+                        <input type="number" hidden={chartType !== "bubble"} value={pointRad[index]} min="1" onChange={(e) => handleRadChange(index, e.target.value)} className="form-control" placeholder="10" />
                         <input type="color" value={dataColor[index]} onChange={(e) => handleDataColor(index, e.target.value)} className="form-control" placeholder='007bff'/>
                         <input type="range" hidden={chartType !== "bubble"} value={dataOpac[index]} onChange={(e) => handleDataOpac(index, Number(e.target.value))} min="0" max="100" className="form-control" placeholder='100'/>
                         <button className="btn btn-danger" onClick={() => removeRow(index)}>Remove</button>
