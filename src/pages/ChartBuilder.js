@@ -33,16 +33,34 @@ const ChartBuilder = () => {
         return(typeCheck);
     }
 
+    const checkPointChart = () => {
+        var typeCheck = (
+            chartType === "line" ||
+            chartType === "scatter" ||
+            chartType === "area" 
+        );
+        return(typeCheck);
+    }
+    const checkNumXY = () => {
+        var typeCheck = (
+            chartType === "scatter" ||
+            chartType === "bubble" 
+        );
+        return(typeCheck);
+    };
+
     var initLabel = ['Label 1', 'Label 2', 'Label 3'];
     //Initialize lables with numbers for grapps below
-    if (
+    /*if (
         chartType === "scatter" ||
         chartType === "bubble"
-    ) initLabel = [1, 2, 3];
-    var initR = [30, 20, 15];    
-
-    const [labels, setLabels] = useState(initLabel);
+    ) initLabel = [1, 2, 3];*/
+    var initR = [5, 20, 15];    
+    
+    const [labels, setLabels] = useState(['Label 1', 'Label 2', 'Label 3']);
+    const [pointPos, setPos] = useState([5, 20, 15])
     const [pointData, setData] = useState([10, 20, 30]);
+    const [pointRad, setRadius] = useState(initR);
     const [title, setTitle] = useState('My Chart');
     const [legendPosition, setLegendPosition] = useState('top');
     const [showDataLabels, setShowDataLabels] = useState(false);
@@ -69,7 +87,6 @@ const ChartBuilder = () => {
     const [borderColor, setBorderColor] = useState('#000');
     const [fontSize, setFontSize] = useState(16);
     const [lineSize, setLineSize] = useState(2);
-    //const [rad, setRadius] = useState(40);
 
     const pointSetup = () => {
         if (chartType === "bubble") 
@@ -79,25 +96,17 @@ const ChartBuilder = () => {
         else return(useState(5));
     };
 
-    const [pointSize, setPointSize] = pointSetup();
+    const [pointSize, setPointSize] = useState(5);
     const [fillMode, setFill] = useState(false);
     const [test, ct] = useState(0);     //Test react object
 
-    //Change point size
-    const pointInfo = () => {
-        if (
-            chartType === "line" ||
-            chartType === "scatter" ||
-            chartType === "area" 
-        )
+    const dataFormat = () => {
+        var dataObject = [0];
+        for (var i = 0; i < pointPos.length; i++)
         {
-            return(
-                <div>
-                    <label>Point Size</label>
-                    <input type='number' value={pointSize} onChange={(e) => setPointSize(Number(e.target.value))} className='form-control mb-2' />
-                </div>
-            );
+            dataObject[i] = {x: pointPos[i], y: pointData[i], r: pointRad[i]};
         }
+        return dataObject;
     };
 
     const areaSetting = () => {
@@ -123,6 +132,12 @@ const ChartBuilder = () => {
         setLabels(newLabels);
     };
 
+    const handlePositionChange = (index, value) => {
+        const newPos = [...pointPos];
+        newPos[index] = Number(value);
+        setPos(newPos);
+    };
+
     const handleDataChange = (index, value) => {
         const newData = [...pointData];
         newData[index] = Number(value);
@@ -130,10 +145,10 @@ const ChartBuilder = () => {
     };
 
     const handleRadChange = (index, value) => {
-        const newRadius = [...pointSize];
+        const newRadius = [...pointRad];
         newRadius[index] = Number(value);
-        ct(newRadius);
-        setPointSize(newRadius);
+        ct(newRadius[index]);
+        setRadius(newRadius);
     };
 
     const handleBgColor = (value) => {
@@ -215,7 +230,7 @@ const ChartBuilder = () => {
         labels: labels,
         datasets: [{
             label: title,
-            data: pointData,
+            data: dataFormat(),
             backgroundColor: bgCO,
             borderColor: borderColor,
             borderWidth: lineSize,
@@ -228,6 +243,7 @@ const ChartBuilder = () => {
     };
 
     const chartOptions = {
+        //data: {x: pointPos, y: pointData},
         responsive: true,
         maintainAspectRatio: true,
         aspectRatio: 1.5,  // Adjust chart size to take up less screen space
@@ -278,13 +294,15 @@ const ChartBuilder = () => {
                 <input type="number" value={fontSize} onChange={(e) => setFontSize(Number(e.target.value))} className="form-control mb-2" />
                 <label>Line Thickness</label>
                 <input type='number' value={lineSize} onChange={(e) => setLineSize(Number(e.target.value))} className='form-control mb-2' />
-                {pointInfo()}
+                <label hidden={!checkPointChart()}>Point Size</label>
+                <input type='number' hidden={!checkPointChart()} value={pointSize} onChange={(e) => setPointSize(Number(e.target.value))} className='form-control mb-2' />
                 <button className="btn btn-primary mt-3" onClick={exportChart}>Download Chart</button>
 
                 <h4>Data Input</h4>
                 {labels.map((label, index) => (
                     <div key={index} className="d-flex gap-2 mb-2">
                         <input type="text" value={label} onChange={(e) => handleLabelChange(index, e.target.value)} className="form-control" placeholder={() => labelPlaceHolder(index)} />
+                        <input type="number" hidden={!checkNumXY()} value={pointPos[index]} onChange={(e) => handlePositionChange(index, e.target.value)} className="form-control" placeholder="Value" />
                         <input type="number" value={pointData[index]} onChange={(e) => handleDataChange(index, e.target.value)} className="form-control" placeholder="Value" />
                         <input type="number" hidden={chartType !== "bubble"} value={pointSize[index]} onChange={(e) => handleRadChange(index, e.target.value)} className="form-control" placeholder="10" />
                         <input type="color" value={dataColor[index]} onChange={(e) => handleDataColor(index, e.target.value)} className="form-control" placeholder='007bff'/>
@@ -294,7 +312,7 @@ const ChartBuilder = () => {
                 ))}
                 <button className="btn btn-success" onClick={addRow}>Add Data Row</button>
             </div>
-            <p>{pointSize} {test}</p>
+            <p>{pointSize} {test} {pointPos}</p>
         </div>
     );
 };
