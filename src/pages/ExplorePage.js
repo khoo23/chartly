@@ -11,10 +11,11 @@ const communityCharts = [
         rating: 4.8,
         views: 1200,
         image: "../assets/pie-chart.png",
-        sets: 1,
         label: ["Company 1", "Company 2", "Company 3"],
+        position: [1, 2, 3],
         values: [10, 40, 30],
-        color: ["#db1cd3", "#09c9d0", "#5616ce"]
+        color: ["#db1cd3", "#09c9d0", "#5616ce"],
+        pointS: 10
     },
     {
         id: 2,
@@ -25,10 +26,11 @@ const communityCharts = [
         rating: 4.6,
         views: 800,
         image: "../assets/pie-chart.png",
-        sets: 1,
         label: ["Company 1", "Company 2", "Company 3", "Company 4", "Company 5", "Company 6"],
+        position: [1, 2, 3, 4, 5, 6],
         values: [30, 25, 10, 15, 10, 10],
-        color: ["#db1cd3", "#09c9d0", "#5616ce", "#9e7d25", "#2449c1", "#4bffdc"]
+        color: ["#db1cd3", "#09c9d0", "#5616ce", "#9e7d25", "#2449c1", "#4bffdc"],
+        pointS: 10
     },
     {
         id: 3,
@@ -39,10 +41,11 @@ const communityCharts = [
         rating: 4.9,
         views: 1500,
         image: "../assets/bar-chart.png",
-        sets: 1,
         label: ["Company 1", "Company 2", "Company 3"],
-        values: [10000, 39083, 287103],
-        color: ["#db1cd3", "#09c9d0", "#f33c59"]
+        position: [1, 2, 3],
+        values: [10000, 39083, 28713],
+        color: ["#db1cd3", "#09c9d0", "#f33c59"],
+        pointS: 10
     },
     {
         id: 4,
@@ -53,26 +56,28 @@ const communityCharts = [
         rating: 4.7,
         views: 950,
         image: "../assets/line-chart.png",
-        sets: 1,
         label: ["Company 1", "Company 2", "Company 3", "Company 4"],
+        position: [1, 2, 3, 4],
         values: [500, 321, 400, 820],
-        color: ["#f33c59", "#2449c1", "#05dbc9", "#db1cd3"]
+        color: ["#f33c59", "#2449c1", "#05dbc9", "#db1cd3"],
+        pointS: 10
     },
     {
         id: 5,
         title: "Customer Growth",
-        chart: "line",
+        chart: "area",
         type: "Area Chart",
         author: "John Smith",
         rating: 4.5,
         views: 700,
         image: "../assets/area-chart.png",
-        sets: 2,
         label: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+        position: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
         values: [105, 203, 190, 230, 250, 260, 304, 340, 400, 350, 500, 553],
         color: ["#db1cd3", "#db1cd3", "#db1cd3", "#db1cd3", 
             "#f33c59", "#f33c59", "#f33c59", "#f33c59",
-            "#05dbc9", "#05dbc9", "#05dbc9", "#05dbc9"]
+            "#05dbc9", "#05dbc9", "#05dbc9", "#05dbc9"],
+        pointS: 10
     }
 ];
 

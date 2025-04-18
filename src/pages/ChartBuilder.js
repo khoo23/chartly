@@ -50,12 +50,20 @@ const ChartBuilder = () => {
         );
         return(typeCheck);
     }
+
+    const checkPastryChart = () => {
+        var typeCheck = (
+            chartType === "pie" ||
+            chartType === "doughnut"
+        );
+        return(typeCheck);
+    }
     
     //Variable Setup
     const [labels, setLabels] = useState(['Label 1', 'Label 2', 'Label 3']);
-    const [pointPos, setPos] = useState([1, 2, 3])
+    const [pointPos, setPos] = useState([1, 2, 3]);
     const [pointData, setData] = useState([10, 20, 30]);
-    const [pointRad, setRadius] = useState([5, 10, 15]);
+    const [pointRad, setPointRadius] = useState([5, 10, 15]);
     //Variable color setup
     var initDataCO = [0];
     const [dataColor, setDataColor] = useState(['#007bff', '#007bff', '#007bff']);
@@ -78,15 +86,20 @@ const ChartBuilder = () => {
 
     const [pointSize, setPointSize] = useState(5);
     const [fillMode, setFill] = useState(false);
+    const [chartRad, setChartRad] = useState(150);
     const [test, ct] = useState(0);     //Test react object
 
     const dataFormat = () => {
-        var dataObject = [0];
-        for (var i = 0; i < pointPos.length; i++)
+        if (!checkPastryChart())
         {
-            dataObject[i] = {x: pointPos[i], y: pointData[i], r: pointRad[i]};
+            var dataObject = [0];
+            for (var i = 0; i < pointPos.length; i++)
+            {
+                dataObject[i] = {x: pointPos[i], y: pointData[i], r: pointRad[i]};
+            }
+            return dataObject;
         }
-        return dataObject;
+        else return(pointData);
     }
 
     const areaSetting = () => {
@@ -128,7 +141,7 @@ const ChartBuilder = () => {
         const newRadius = [...pointRad];
         newRadius[index] = Number(value);
         ct(newRadius[index]);
-        setRadius(newRadius);
+        setPointRadius(newRadius);
     }
 
     const handleBgColor = (value) => {
@@ -175,7 +188,7 @@ const ChartBuilder = () => {
         setLabels([...labels, labelPlaceHolder(labels.length)]);
         setPos([...pointPos, pointPos.length + 1]);
         setData([...pointData, 0]);
-        setRadius([...pointRad, 10]);
+        setPointRadius([...pointRad, 10]);
         setDataColor([...dataColor, "#007bff"]);
         setDataOpac([...dataOpac, 255]);
         setDataCO([...dataCO, "#007bffff"]);
@@ -185,7 +198,7 @@ const ChartBuilder = () => {
         setLabels(labels.filter((_, i) => i !== index));
         setPos(pointPos.filter((_, i) => i !== index));
         setData(pointData.filter((_, i) => i !== index));
-        setRadius(pointRad.filter((_, i) => i !== index));
+        setPointRadius(pointRad.filter((_, i) => i !== index));
         setDataColor(dataColor.filter((_, i) => i !== index));
         setDataOpac(dataOpac.filter((_, i) => i !== index));
         setDataCO(dataCO.filter((_, i) => i !== index));
@@ -201,7 +214,7 @@ const ChartBuilder = () => {
         });
     }
 
-    //WARNING: radius property freffers to pie/dounut size
+    //WARNING: radius property reffers to pie/dounut size
     const chartData = {
         labels: labels,
         datasets: [{
@@ -221,7 +234,8 @@ const ChartBuilder = () => {
     const chartOptions = {
         responsive: true,
         maintainAspectRatio: true,
-        aspectRatio: 1.5,  // Adjust chart size to take up less screen space
+        aspectRatio: 1.5,  // Adjust chart size to take up less screen space,
+        //radius: chartRad,
         plugins: {
             filler: {
                 propegate: false,
@@ -258,6 +272,8 @@ const ChartBuilder = () => {
                 </select>
                 <label hidden="true">Data Label Visibility: </label>
                 <input type="checkbox" hidden="true" checked={showDataLabels} onChange={() => setShowDataLabels(!showDataLabels)} className="form-check-input mb-2" />
+                <label hidden={!checkPastryChart()}>Chart Radius (px): </label>
+                <input type="number" hidden={!checkPastryChart()} value={chartRad} onChange={(e) => setChartRad(e.target.value)} className="form-control mb-2" />
                 <label>Background Color: </label>
                 <input type="color" hidden={checkBgType()} value={bgColor} onChange={(e) => handleBgColor(e.target.value)} className="form-control mb-2" />
                 <label hidden={chartType !== "area"}>Background Opacity (0 - 100)%: </label>
@@ -287,7 +303,6 @@ const ChartBuilder = () => {
                 ))}
                 <button className="btn btn-success" onClick={addRow}>Add Data Row</button>
             </div>
-            <p>{pointSize} {test} {pointPos}</p>
         </div>
     );
 };
