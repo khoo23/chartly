@@ -290,6 +290,12 @@ const ChartBuilder = () => {
                 <button className="btn btn-primary mt-3" onClick={exportChart}>Download Chart</button>
 
                 <h4>Data Input</h4>
+                <p style={{display: "inline", fontSize: "25px"}} className='display-6'>Label</p>
+                <p style={{display: "inline", fontSize: "25px"}} className='display-6' hidden={!checkNumXY()}> | X</p>
+                <p style={{display: "inline", fontSize: "25px"}} className='display-6'> | Y</p>
+                <p style={{display: "inline", fontSize: "25px"}} className='display-6' hidden={chartType !== "bubble"}> | Z</p>
+                <p style={{display: "inline", fontSize: "25px"}} className='display-6'> | Color</p>
+                <p style={{display: "inline", fontSize: "25px"}} className='display-6' hidden={chartType !== "bubble"}> | Transparency</p>
                 {labels.map((label, index) => (
                     <div key={index} className="d-flex gap-2 mb-2">
                         <input type="text" value={label} onChange={(e) => handleLabelChange(index, e.target.value)} className="form-control" placeholder={() => labelPlaceHolder(index)} />
