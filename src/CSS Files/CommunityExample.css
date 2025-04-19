@@ -1,0 +1,7 @@
+#ratingsBox{
+    width: "30%";
+    margin: "auto"; 
+    font-size: "30px";
+    background-color: "red"; 
+    transition: "backgroundColor 2s";
+}

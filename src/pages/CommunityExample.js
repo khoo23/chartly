@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { Chart as ChartJS, ArcElement, LineElement, BarElement, PointElement, CategoryScale, LinearScale, Title, Tooltip, Legend, RadialLinearScale } from 'chart.js';
 import { Pie, Line, Bar, Doughnut, Scatter, Bubble, PolarArea } from 'react-chartjs-2';
 import html2canvas from 'html2canvas';
+import ReactDOM from 'react-dom';
+
 
 ChartJS.register(ArcElement, LineElement, BarElement, PointElement, CategoryScale, LinearScale, RadialLinearScale, Title, Tooltip, Legend);
 
@@ -123,7 +124,7 @@ const CommunityExample = () => {
     }
 
     const ratingDisplay = (starID) => {
-        var starOut = <div style={{display: "inline-block", fontSize: "30px", margin:"10px 1px"}} onMouseEnter={() => toggleStarOn(starID)} onMouseLeave={() => toggleStarOff(starID)} onClick={ratingSelect} value={starID}>{starCond[starID]}</div>;
+        var starOut = <div style={{display: "inline-block", fontSize: "30px", margin:"10px 1px", color: "#007bff"}} onMouseEnter={() => toggleStarOn(starID)} onMouseLeave={() => toggleStarOff(starID)} onClick={ratingSelect} value={starID}>{starCond[starID]}</div>;
         return(starOut);
     }
 
@@ -148,6 +149,10 @@ const CommunityExample = () => {
         if(!starSelect){
             setStar(["☆","☆","☆","☆","☆"]);
         }
+    }
+    
+    const starsOff = () => {
+        if(starSelect){setStar(["☆","☆","☆","☆","☆"]);}
     }
 
     const handleLabelChange = (index, value) => {
@@ -288,14 +293,14 @@ const CommunityExample = () => {
         <div className="container py-5">
             <h1 className="display-4 text-center">{chartInfo.title}</h1>
             <h2 className='display-8 text-center'>By: {chartInfo.author}</h2>
-            <h4 className='display-8 text-center' onMouseLeave={setStar(["☆","☆","☆","☆","☆"])}>
+            <div id="ratingsBox" className={'display-4 text-center'} onMouseLeave={starsOff}>
                 <label>Your Rating: </label>
                 {ratingDisplay(0)}
                 {ratingDisplay(1)}
                 {ratingDisplay(2)}
                 {ratingDisplay(3)}
                 {ratingDisplay(4)}
-            </h4>
+            </div>
             <div id="chartContainer" className="my-4" style={{ maxWidth: '50%', margin: '0 auto' }}>
                 <ChartComponent data={chartData} options={chartOptions} />
             </div>
