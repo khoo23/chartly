@@ -3,8 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { Chart as ChartJS, ArcElement, LineElement, BarElement, PointElement, CategoryScale, LinearScale, Title, Tooltip, Legend, RadialLinearScale } from 'chart.js';
 import { Pie, Line, Bar, Doughnut, Scatter, Bubble, PolarArea } from 'react-chartjs-2';
 import html2canvas from 'html2canvas';
-import ReactDOM from 'react-dom';
-
+import "../index.css"
 
 ChartJS.register(ArcElement, LineElement, BarElement, PointElement, CategoryScale, LinearScale, RadialLinearScale, Title, Tooltip, Legend);
 
@@ -293,7 +292,7 @@ const CommunityExample = () => {
         <div className="container py-5">
             <h1 className="display-4 text-center">{chartInfo.title}</h1>
             <h2 className='display-8 text-center'>By: {chartInfo.author}</h2>
-            <div id="ratingsBox" className={'display-4 text-center'} onMouseLeave={starsOff}>
+            <div className={'display-4 text-center'} style={{width: "30%", margin: "auto", fontSize: "30px"}} onMouseLeave={starsOff}>
                 <label>Your Rating: </label>
                 {ratingDisplay(0)}
                 {ratingDisplay(1)}
