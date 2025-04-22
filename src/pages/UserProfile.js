@@ -7,7 +7,7 @@ const userProfile = {
     charts: 128,
     liked: 45,
     avatar: "/assets/avatar.png",
-    bio: "Hi! I am an analyst for ALC Company! I like making finacnial and trend analysis charts/templates!"
+    bio: "Hi! I am an analyst for ALC Company! I like making financial and trend analysis charts/templates!"
 };
 
 const userCharts = [
